@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+    <service verb="vote" noun="Team">
+        <in-parameters>
+          <parameter name="fromPartyId"/>
+          <parameter name="toPartyId"/>
+        </in-parameters>
+        <out-parameters>
+          <parameter name="previousVote" />
+          <parameter name="error" />
+          <!-- success-->
+        </out-parameters>
+        <actions>
+          <!-- find vote from party to party -->
+          <entity-find entity-name="mantle.party.PartyRelationship" list="previousVotes">
+            <econdition field-name="relationshipTypeEnumId" value="VOTED_FOR"/> 
+            <econdition field-name="toPartyId" from="toPartyId"/> 
+            <econdition field-name="fromPartyId" from="fromPartyId"/> 
+          </entity-find>
+          <set field="previousVote" from="previousVotes[0]" />
+
+          <if condition="previousVote == null">
+            <then>
+              <service-call
+                name="create#mantle.party.PartyRelationship"
+                in-map="[
+                  fromDate: ec.user.nowTimestamp,
+                  relationshipTypeEnumId: 'VOTED_FOR',
+                  fromPartyId: fromPartyId,
+                  toPartyId: toPartyId
+                ]"
+              />
+              <set field="error" value="no" />
+            </then>
+            <else>
+              <set field="error" value="yes" />
+              <return error="true" message="You can't vote twice." />
+            </else>
+          </if>
+        </actions>
+    </service>
+    <service verb="load" noun="Data" allow-remote="true" authenticate="anonymous-all">
+      <in-parameters>
+        <parameter name="url" type="java.lang.String" required="true"/>
+        <parameter name="port" type="Integer" required="true"/>
+        <parameter name="path" type="java.lang.String" required="true"/>
+      </in-parameters>
+      <out-parameters>
+        <parameter name="answer" />
+        <parameter name="statusCode" />
+        <parameter name="jsonText" />
+      </out-parameters>
+      <actions><script><![CDATA[
+         org.moqui.util.RestClient restClient = ec.service.rest().method(org.moqui.util.RestClient.POST)
+              .addHeader("Content-Type", "application/json").jsonObject(requestMap)
+
+          restClient.uri().protocol("http").host(url).port(port).path(path).build()
+
+          org.moqui.util.RestClient.RestResponse restResponse = restClient.call()
+
+          statusCode = restResponse.statusCode
+          if (restResponse.statusCode < 200 || restResponse.statusCode >= 500) {
+              ec.message.addMessage("Error retrieving information")
+              answer = getReasonPhrase();
+              return
+          }
+          jsonText = restResponse.text()
+
+          org.moqui.entity.EntityDataLoader edl = ec.entity.makeDataLoader()
+          edl.jsonText(jsonText)
+
+          List<String> messages = new LinkedList<>()
+          long recordsLoaded = edl.load(messages)
+          ec.message.addMessage("Loaded ${recordsLoaded} records")
+          answer = messages
+      ]]></script></actions>
+    </service>
+</services>

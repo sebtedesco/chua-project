@@ -1,0 +1,43 @@
+.select2-container,
+.footer {
+  z-index:2000 
+} 
+.player-portrait {
+  vertical-align:bottom;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+.margin-auto {
+  margin: 0 auto;
+}
+.modal.container-dialog{
+  display:flex;
+  align-items: center;
+}
+.modal-dialog {
+  margin: 0 auto;
+  max-width: 90%;
+}
+.notLoggedIn, #content .container-fluid {
+  text-align: center;
+}
+.notLoggedIn a {
+  font-size: 18px;
+}
+.img-responsive {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.team-roster-title {
+    margin-bottom: 45px;
+}
+.player-portrait .btn, #comment-button, #vote-button {
+    font-weight: 600;
+    font-size: 14px;
+}
+.fa-share {
+    display: none;
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-facade-xml type="install">
+    <!-- security seeds -->
+    <moqui.security.ArtifactGroup artifactGroupId="CHUA_APP_PUBLIC"
+            description="CHUA app public website screens"/>
+    <moqui.security.ArtifactGroupMember artifactGroupId="CHUA_APP_PUBLIC" 
+            artifactName="component://chua-project/screen/chua-project.xml"
+            artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+    <moqui.security.ArtifactAuthz artifactAuthzId="TUT_ALL" 
+            userGroupId="ALL_USERS" artifactGroupId="CHUA_APP_PUBLIC"
+            authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
+
+
+    <!-- REQUIRED ENUMS -->
+    <moqui.basic.Enumeration enumId="NBA_TEAM" enumTypeId="PartyType" description="Basquetball team from the NBA"/>
+    <moqui.basic.Enumeration enumId="NBA_PLAYER" enumTypeId="PartyType" description="Basquetball player from the NBA"/>
+    <moqui.basic.Enumeration enumId="CHUA_PROJECT_USER" enumTypeId="PartyType" description="Basquetball team from the NBA"/>
+
+    <moqui.basic.Enumeration enumId="NBA_TEAM_LOGO" enumTypeId="PartyContentType" description="The logo of a Basquetball team from the NBA"/>
+    <moqui.basic.Enumeration enumId="PLAYER_PHOTO" enumTypeId="PartyContentType" description="The photo of a Basquetball player from the NBA"/>
+
+    <moqui.basic.Enumeration enumId="NBA_DIVISION" enumTypeId="PartyClassificationType" description="The division to which a Basquetball team from the NBA belongs"/>
+    <moqui.basic.Enumeration enumId="NBA_CONFERENCE" enumTypeId="PartyClassificationType" description="The conference to which a Basquetball team from the NBA belongs"/>
+    <moqui.basic.Enumeration enumId="NBA_PLAYER_POSITION" enumTypeId="PartyClassificationType" description="The field position of a Basquetball player "/>
+
+    <moqui.basic.Enumeration enumId="VOTED_FOR" enumTypeId="PartyRelationshipType" description="The team a user supported"/>
+    <moqui.basic.Enumeration enumId="PLAYS_FOR" enumTypeId="PartyRelationshipType" description="The team for which the player plays"/>
+    <!-- REQUIRED TYPES -->
+    <!-- conference -->
+    <mantle.party.PartyClassification partyClassificationId="West" classificationTypeEnumId="NBA_CONFERENCE" />
+    <mantle.party.PartyClassification partyClassificationId="East" classificationTypeEnumId="NBA_CONFERENCE" />
+    <!-- division -->
+    <mantle.party.PartyClassification partyClassificationId="Atlantic" classificationTypeEnumId="NBA_DIVISION" />
+    <mantle.party.PartyClassification partyClassificationId="Central" classificationTypeEnumId="NBA_DIVISION" />
+    <mantle.party.PartyClassification partyClassificationId="Southeast" classificationTypeEnumId="NBA_DIVISION" />
+    <mantle.party.PartyClassification partyClassificationId="Northwest" classificationTypeEnumId="NBA_DIVISION" />
+    <mantle.party.PartyClassification partyClassificationId="Pacific" classificationTypeEnumId="NBA_DIVISION" />
+    <mantle.party.PartyClassification partyClassificationId="Southwest" classificationTypeEnumId="NBA_DIVISION" />
+    <mantle.party.PartyClassification partyClassificationId="Center" classificationTypeEnumId="NBA_PLAYER_POSITION" />
+    <mantle.party.PartyClassification partyClassificationId="Center-Forward" classificationTypeEnumId="NBA_PLAYER_POSITION" />
+    <mantle.party.PartyClassification partyClassificationId="Forward" classificationTypeEnumId="NBA_PLAYER_POSITION" />
+    <mantle.party.PartyClassification partyClassificationId="Forward-Center" classificationTypeEnumId="NBA_PLAYER_POSITION" />
+    <mantle.party.PartyClassification partyClassificationId="Forward-Guard" classificationTypeEnumId="NBA_PLAYER_POSITION" />
+    <mantle.party.PartyClassification partyClassificationId="Guard" classificationTypeEnumId="NBA_PLAYER_POSITION" />
+    <mantle.party.PartyClassification partyClassificationId="Guard-Forward" classificationTypeEnumId="NBA_PLAYER_POSITION" />
+
+    <moqui.basic.UomDimensionType description="Games won"  uomDimensionTypeId="GamesWon" uomTypeEnumId="UT_OTHER_MEASURE"/>
+
+</entity-facade-xml>
+

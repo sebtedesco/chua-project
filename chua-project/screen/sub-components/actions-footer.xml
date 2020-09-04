@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<screen xmlns:xsi="http://www.w3.org/2001/xmlschema-instance"
+        xsi:nonamespaceschemalocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        require-authentication="anonymous-all">
+    <parameter field="teamId" />
+    <widgets>
+      <container style="navbar navbar-default navbar-fixed-bottom lead text-center footer">
+        <container style="input-group input-group-lg">
+          <container-dialog id="vote" button-text="Vote"
+            type="success navbar-btn form-control">
+            <include-screen
+              location="component://chua-project/screen/sub-components/register-or-login.xml"
+              share-scope="true"
+            />
+            <section name="voteForm" condition="isAuthenticated">
+              <widgets>
+                <include-screen location="component://chua-project/screen/sub-components/vote-form.xml"/>
+              </widgets>
+            </section>
+          </container-dialog>
+          <container-dialog id="comment" button-text="Comment"
+            type="success navbar-btn form-control">
+            <include-screen
+              location="component://chua-project/screen/sub-components/register-or-login.xml"
+              share-scope="true"
+            />
+            <section name="commentForm" condition="isAuthenticated">
+              <widgets>
+                <include-screen location="component://chua-project/screen/sub-components/comment-form.xml"/>
+              </widgets>
+            </section>
+          </container-dialog>
+        </container>
+      </container>
+    </widgets>
+</screen>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<screen xmlns:xsi="http://www.w3.org/2001/xmlschema-instance"
+        xsi:nonamespaceschemalocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        require-authentication="anonymous-all">
+    <parameter name="teamId"/>
+    <!-- actions on the bottom bar -->
+    <transition-include name="voteFor" location="component://chua-project/screen/sub-components/vote-form.xml"/>
+    <transition-include name="commentOn" location="component://chua-project/screen/sub-components/comment-form.xml"/>
+    <!-- login, register related-->
+    <transition-include name="changePassword" location="component://chua-project/screen/chua-project/LoginForm.xml"/>
+    <transition-include name="resetPassword" location="component://chua-project/screen/chua-project/LoginForm.xml"/>
+    <transition-include name="createUser" location="component://chua-project/screen/chua-project/LoginForm.xml"/>
+    <transition-include name="login" location="component://chua-project/screen/chua-project/LoginForm.xml"/>
+    <!-- player rating -->
+    <transition-include name="ratePlayer" location="component://chua-project/screen/sub-components/player-details/rate-player-footer.xml" />
+
+    <actions>
+      <set field="teamId" from="teamId" default-value="Atlanta Hawks" />
+      <set field="partyId" from="teamId" default-value="Atlanta Hawks" />
+    </actions>
+    <widgets>
+        <container-row>
+            <row-col xs="0" sm="1" md="1" lg="2">
+            </row-col>
+            <!-- Team Details -->
+            <row-col xs="12" sm="10" md="10" lg="8">
+                <include-screen location="component://chua-project/screen/sub-components/team-details.xml"/>
+            </row-col>
+            <row-col xs="1" sm="1" md="1" lg="2">
+            </row-col>
+        </container-row>
+
+        <container-row>
+            <row-col xs="0" sm="1" md="1" lg="2">
+            </row-col>
+            <!-- main content - body -->
+            <row-col xs="12" sm="10" md="10" lg="8">
+                <container-row>
+                    <!-- players list -->
+                    <row-col xs="12" sm="12" md="12" lg="12" style="panel panel-default">
+                        <include-screen location="component://chua-project/screen/sub-components/player-list.xml"/>
+
+                    </row-col>
+                </container-row>
+            </row-col>
+            <row-col xs="0" sm="1" md="1" lg="2">
+            </row-col>
+        </container-row>
+        <container>
+        <container-row>
+            <row-col xs="0" sm="1" md="1" lg="2">
+            </row-col>
+            <!-- Comment Section -->
+            <row-col xs="12" sm="10" md="10" lg="8">
+                <container-row>
+                    <!-- players list -->
+                    <row-col xs="12" sm="12" md="12" lg="12" style="panel panel-default">
+                        <include-screen location="component://chua-project/screen/sub-components/comment-list.xml"/>
+
+                    </row-col>
+                </container-row>
+            </row-col>
+            <row-col xs="0" sm="1" md="1" lg="2">
+            </row-col>
+        </container-row>
+          <!-- get extra height so that the footer doesnt covers anything -->
+<!--          <label type="h1" text=". "/>-->
+        </container>
+<!--        <include-screen location="component://chua-project/screen/sub-components/actions-footer.xml"/>-->
+    </widgets>
+</screen>

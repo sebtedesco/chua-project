@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<screen xmlns:xsi="http://www.w3.org/2001/xmlschema-instance"
+        xsi:nonamespaceschemalocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        require-authentication="anonymous-all">
+    <parameter name="teamId"/>
+    <parameter name="pageString"/>
+    <parameter name="sizeString"/>
+    <actions>
+      <!-- get team reviews -->
+      <!-- TBD -->
+      <set field="page" type="Integer" from="pageString" default-value="0"/>
+      <set field="size" type="Integer" from="sizeString" default-value="8"/>
+      <entity-find entity-name="mantle.party.PartyReview" list="commentsList">
+        <econdition field-name="partyId" from="teamId" />
+        <order-by field-name="-postedDateTime" />
+        <limit-range start="page" size="size" />
+      </entity-find>
+    </actions>
+    <widgets>
+      <label type="h2" text="Comments"/>
+      <section-iterate name="comments-list" list="commentsList" entry="comment" condition="commentsList">
+        <actions>
+          .<set field="commentAuthor" from="comment.UserAccount ? comment.UserAccount.username : 'Anonymous'" />
+        </actions>
+        <widgets>
+          <container style="row shaded-area">
+            <label type="h3" text=" ${commentAuthor} "/>
+<!--            <label type="span" text=" ${comment.partyRating} " style="glyphicon glyphicon-star"/>-->
+            <label type="h5" text="${comment.partyReview}"/>
+          </container>
+        </widgets>
+      </section-iterate>
+      <section name="no-player-message" condition="commentsList ? commentsList.size()==0 : true" paginate="true">
+        <widgets>
+          <label type="h6" text="0 Comments" />
+        </widgets>
+      </section>
+    </widgets>
+</screen>

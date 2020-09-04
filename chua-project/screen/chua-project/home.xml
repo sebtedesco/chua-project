@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<screen xmlns:xsi="http://www.w3.org/2001/xmlschema-instance"
+        xsi:nonamespaceschemalocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        require-authentication="anonymous-all">
+    <parameter name="teamId"/>
+    <transition-include name="voteFor" location="component://chua-project/screen/sub-components/vote-form.xml"/>
+    <transition-include name="commentOn" location="component://chua-project/screen/sub-components/comment-form.xml"/>
+    <actions>
+        <set field="teamId" from="teamId" default-value="Atlanta Hawks" />
+        <set field="partyId" from="teamId" default-value="Atlanta Hawks" />
+    </actions>
+    <widgets>
+        <container-row>
+          <row-col xs="0" sm="1" md="1" lg="2">
+          </row-col>
+          <!-- main content - body -->
+          <row-col xs="12" sm="10" md="10" lg="8">
+            <container-row>
+              <row-col xs="12" sm="12" md="12" lg="12" style="panel panel-default">
+                <include-screen location="component://chua-project/screen/sub-components/team-list.xml"/>
+              </row-col>
+            </container-row>
+          </row-col>
+          <row-col xs="0" sm="1" md="1" lg="2">
+          </row-col>
+        </container-row>
+    </widgets>
+</screen>
