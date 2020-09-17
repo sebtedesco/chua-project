@@ -1,5 +1,5 @@
 # The Chua Project
-Its an NBA teams voting and commenting website, made on moqui!
+Its an NBA teams voting and commenting website, made using Moqui!
 
 It includes:
 - A homepage with all teams
